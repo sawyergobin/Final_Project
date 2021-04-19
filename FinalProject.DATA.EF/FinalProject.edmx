@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FinalProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FinalProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Locations">
           <Key>
             <PropertyRef Name="LocationId" />
@@ -39,6 +39,27 @@
           <Property Name="ReservationDate" Type="date" Nullable="false" />
           <Property Name="SpecialRequests" Type="varchar" MaxLength="300" />
         </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="11" />
+        </EntityType>
+        <Association Name="FK_Pets_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="Pets" Type="Self.Pets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Pets">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reservations_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
           <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
@@ -67,6 +88,11 @@
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pets" EntityType="Self.Pets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pets_UserDetails" Association="Self.FK_Pets_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="Pets" EntitySet="Pets" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reservations_Locations" Association="Self.FK_Reservations_Locations">
             <End Role="Locations" EntitySet="Locations" />
             <End Role="Reservations" EntitySet="Reservations" />
@@ -76,8 +102,7 @@
             <End Role="Reservations" EntitySet="Reservations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FinalProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -106,6 +131,7 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Pets" FromRole="Pets" ToRole="Reservations" />
+          <NavigationProperty Name="UserDetail" Relationship="FinalProjectModel.FK_Pets_UserDetails" FromRole="Pet" ToRole="UserDetail" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -155,7 +181,34 @@
             <End Role="Pets" EntitySet="Pets" />
             <End Role="Reservations" EntitySet="Reservations" />
           </AssociationSet>
+          <EntitySet Name="UserDetails" EntityType="FinalProjectModel.UserDetail" />
+          <AssociationSet Name="FK_Pets_UserDetails" Association="FinalProjectModel.FK_Pets_UserDetails">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="Pet" EntitySet="Pets" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pets" Relationship="FinalProjectModel.FK_Pets_UserDetails" FromRole="UserDetail" ToRole="Pet" />
+        </EntityType>
+        <Association Name="FK_Pets_UserDetails">
+          <End Type="FinalProjectModel.UserDetail" Role="UserDetail" Multiplicity="1" />
+          <End Type="FinalProjectModel.Pet" Role="Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -196,6 +249,16 @@
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
                 <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
                 <ScalarProperty Name="SpecialRequests" ColumnName="SpecialRequests" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="FinalProjectModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

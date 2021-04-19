@@ -65,9 +65,23 @@ namespace FinalProject.UI.MVC.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "First Name be less than 50 characters")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage ="Last Name be less than 50 characters")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
+
+        [Phone]
+        [Display(Name ="Phone Number")]
+        public string Phone { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

@@ -1,4 +1,5 @@
-﻿using FinalProject.UI.MVC.Models;
+﻿using FinalProject.DATA.EF;
+using FinalProject.UI.MVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -153,6 +154,25 @@ namespace FinalProject.UI.MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    #region CustomUserDetails
+                    UserDetail newUserDetails = new UserDetail();
+                    newUserDetails.UserId = user.Id;
+                    newUserDetails.FirstName= model.FirstName;
+                    newUserDetails.LastName = model.LastName;
+                    if (model.Phone != null)
+                    {
+                        newUserDetails.Phone = model.Phone;
+                    }
+                    else
+                    {
+                        newUserDetails.Phone = "[N/A]";
+                    }
+
+                    FinalProjectEntities db = new FinalProjectEntities();
+                    db.UserDetails.Add(newUserDetails);
+                    db.SaveChanges();
+                    #endregion
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");

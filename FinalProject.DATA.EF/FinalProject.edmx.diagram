@@ -10,6 +10,8 @@
         <EntityTypeShape EntityType="FinalProjectModel.Reservation" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="FinalProjectModel.FK_Reservations_Locations" ManuallyRouted="false" />
         <AssociationConnector Association="FinalProjectModel.FK_Reservations_Pets" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FinalProjectModel.UserDetail" Width="1.5" PointX="0.75" PointY="9.375" />
+        <AssociationConnector Association="FinalProjectModel.FK_Pets_UserDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

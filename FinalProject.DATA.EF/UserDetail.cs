@@ -12,24 +12,20 @@ namespace FinalProject.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Pet
+    public partial class UserDetail
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Pet()
+        public UserDetail()
         {
-            this.Reservations = new HashSet<Reservation>();
+            this.Pets = new HashSet<Pet>();
         }
     
-        public int PetId { get; set; }
-        public string AssetName { get; set; }
-        public string OwnerId { get; set; }
-        public string AssetPhoto { get; set; }
-        public string SpecialNotes { get; set; }
-        public bool IsActive { get; set; }
-        public System.DateTime DateAdded { get; set; }
+        public string UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservation> Reservations { get; set; }
-        public virtual UserDetail UserDetail { get; set; }
+        public virtual ICollection<Pet> Pets { get; set; }
     }
 }

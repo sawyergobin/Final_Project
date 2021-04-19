@@ -28,5 +28,6 @@ namespace FinalProject.DATA.EF
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Pet> Pets { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<UserDetail> UserDetails { get; set; }
     }
 }

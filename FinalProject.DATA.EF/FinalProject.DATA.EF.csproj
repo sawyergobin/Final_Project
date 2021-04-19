@@ -75,6 +75,9 @@
     <Compile Include="Reservation.cs">
       <DependentUpon>FinalProject.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserDetail.cs">
+      <DependentUpon>FinalProject.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="FinalProject.edmx">
