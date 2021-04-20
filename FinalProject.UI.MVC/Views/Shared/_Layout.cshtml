@@ -44,6 +44,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-xs-12">
                         <div id="gtco-logo"><a href="@Url.Action("Index", "Home")"><img src="~/Content/images/logo.png" alt="Paws N Claws Logo"></a></div>
+                        @Html.Partial("_LoginPartial")
                     </div>
                     <div class="col-xs-10 text-right menu-1">
                         <ul>
@@ -72,23 +73,30 @@
                                     </ul>
                                 </li>
                             }
-                            else if (User.IsInRole("Admin"))
+                            else if (User.IsInRole("Admin") || User.IsInRole("Employee"))
                             {
                                 <li class="has-dropdown">
-                                    <a href="javascript:void(0)">All Pets</a>
+                                    <a href="javascript:void(0)">Pets</a>
                                     <ul class="dropdown">
                                         <li><a href="@Url.Action("Index", "Pets")">All Pets</a></li>
-                                        <li><a href="@Url.Action("Create", "Pets")">Add New Pet</a></li>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <li><a href="@Url.Action("Create", "Pets")">Add New Pet</a></li>
+                                        }
                                     </ul>
                                 </li>
                             }
-                            else if (User.IsInRole("Employee"))
+
+                            @if (Request.IsAuthenticated)
                             {
-                                <li><a href="@Url.Action("Index", "Pets")">All Pets</a></li>
+                                <li><a href="@Url.Action("Index","Reservations")">Reservations</a></li>
                             }
-                            <li><a href="@Url.Action("Index","Reservations")">Reservations</a></li>
                             <li><a href="@Url.Action("Index", "Locations")">Our Locations</a></li>
-                            <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                            @if (Request.IsAuthenticated)
+                            {
+                                <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                            }
+
 
                         </ul>
                     </div>

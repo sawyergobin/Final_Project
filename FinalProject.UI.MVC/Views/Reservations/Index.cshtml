@@ -6,9 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin") || User.IsInRole("Pet Owner"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -26,26 +29,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReservationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SpecialRequests)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location.LocationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pet.AssetName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReservationId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ReservationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialRequests)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.LocationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pet.AssetName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.ReservationId })
+                @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                {
+                    @:|
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ReservationId })
+                    if (User.IsInRole("Admin"))
+                    {
+                        @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ReservationId })
+                    }
+                }
+            </td>
+        </tr>
+    }
 
 </table>
