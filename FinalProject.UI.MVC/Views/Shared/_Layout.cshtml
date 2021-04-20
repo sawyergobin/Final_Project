@@ -49,6 +49,7 @@
                         <ul>
                             <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
                             <li><a href="@Url.Action("About","Home")">About Us</a></li>
+                            @* Admin Only Dropdown *@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="has-dropdown">
@@ -56,18 +57,37 @@
                                     <ul class="dropdown">
                                         <li><a href="@Url.Action("Index", "UsersAdmin")">Users Admin</a></li>
                                         <li><a href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a></li>
-                                        <li><a href="@Url.Action("Create", "Location")">Add New Daycare</a></li>
+                                        <li><a href="@Url.Action("Create", "Locations")">Add New Daycare</a></li>
                                     </ul>
                                 </li>
                             }
-                            <li class="has-dropdown">
-                                <a href="javascript:void(0)">My Pets</a>
-                                <ul class="dropdown">
-                                    <li><a href="@Url.Action("Index","Pet")">All Pets</a></li>
-                                    <li><a href="@Url.Action("Create","Pet")">Add New Pet</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="@Url.Action("Index","Reservation")">Reservations</a></li>
+                            @* Different Dropdowns here depending on role *@
+                            @if (User.IsInRole("Pet Owner"))
+                            {
+                                <li class="has-dropdown">
+                                    <a href="javascript:void(0)">My Pets</a>
+                                    <ul class="dropdown">
+                                        <li><a href="@Url.Action("Index", "Pets")">All My Pets</a></li>
+                                        <li><a href="@Url.Action("Create", "Pets")">Add New Pet</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            else if (User.IsInRole("Admin"))
+                            {
+                                <li class="has-dropdown">
+                                    <a href="javascript:void(0)">All Pets</a>
+                                    <ul class="dropdown">
+                                        <li><a href="@Url.Action("Index", "Pets")">All Pets</a></li>
+                                        <li><a href="@Url.Action("Create", "Pets")">Add New Pet</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            else if (User.IsInRole("Employee"))
+                            {
+                                <li><a href="@Url.Action("Index", "Pets")">All Pets</a></li>
+                            }
+                            <li><a href="@Url.Action("Index","Reservations")">Reservations</a></li>
+                            <li><a href="@Url.Action("Index", "Locations")">Our Locations</a></li>
                             <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
 
                         </ul>
@@ -85,7 +105,7 @@
             <div class="gtco-container">
                 <div class="row row-pb-md">
                     <div class="col-md-8 col-md-offset-2 gtco-cta text-center">
-                        <h3>Any Questions?</h3>
+                        <h3>Questions? Ask us!</h3>
                         <p><a href="@Url.Action("Contact","Home")" class="btn btn-white btn-outline">Contact Us</a></p>
                     </div>
                 </div>
@@ -107,7 +127,7 @@
                             </div>
                             <div class="col-md-6">
                                 <p>
-                                    <a href="tel://1234567890">(234)-456-2342</a> <br>
+                                    <a href="#">(234)-456-2342</a> <br>
                                     <a href="#">info@pnc.com</a>
                                 </p>
                             </div>

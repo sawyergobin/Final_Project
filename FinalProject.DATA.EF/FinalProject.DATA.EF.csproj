@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FinalProject.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\FinalProjectMetadata.cs" />
     <Compile Include="Location.cs">
       <DependentUpon>FinalProject.tt</DependentUpon>
     </Compile>
