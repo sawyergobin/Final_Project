@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Configuration;
+using System.Web.Mvc;
 
 namespace FinalProject.UI.MVC.Controllers
 {
@@ -23,6 +24,14 @@ namespace FinalProject.UI.MVC.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Contact(int UPDATEMEEEEE)
+        {
+            string emailServer = WebConfigurationManager.AppSettings["EmailServer"];            string emailPW = WebConfigurationManager.AppSettings["EmailPW"];            string emailUser = WebConfigurationManager.AppSettings["EmailUser"];            string emailToAddress = WebConfigurationManager.AppSettings["EmailToAddress"];
 
             return View();
         }

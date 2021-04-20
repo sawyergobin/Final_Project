@@ -6,7 +6,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-Web.config
 Keys.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)

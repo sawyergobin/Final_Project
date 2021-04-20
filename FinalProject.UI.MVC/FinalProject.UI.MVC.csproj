@@ -193,6 +193,9 @@
     <Content Include="Content\css\owl.theme.default.min.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\themify-icons.css" />
+    <Content Include="Content\fonts\bootstrap\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\icomoon\icomoon.svg" />
+    <Content Include="Content\fonts\themify-icons\themify.svg" />
     <Content Include="Content\images\client_1.png" />
     <Content Include="Content\images\client_2.png" />
     <Content Include="Content\images\client_3.png" />
@@ -287,6 +290,17 @@
     <Content Include="Content\images\.DS_Store" />
     <Content Include="Content\js\.DS_Store" />
     <Content Include="Keys.config" />
+    <Content Include="Content\fonts\.DS_Store" />
+    <Content Include="Content\fonts\bootstrap\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\bootstrap\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\bootstrap\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\bootstrap\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\icomoon\icomoon.eot" />
+    <Content Include="Content\fonts\icomoon\icomoon.ttf" />
+    <Content Include="Content\fonts\icomoon\icomoon.woff" />
+    <Content Include="Content\fonts\themify-icons\themify.eot" />
+    <Content Include="Content\fonts\themify-icons\themify.ttf" />
+    <Content Include="Content\fonts\themify-icons\themify.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
