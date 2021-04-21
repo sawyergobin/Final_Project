@@ -61,7 +61,7 @@ namespace FinalProject.DATA.EF
         public bool IsActive { get; set; }
         [Required]
         [Display(Name = "Date Added")]
-        [DisplayFormat(DataFormatString = "{0:d}, ApplyFormatInEditMode=true")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public System.DateTime DateAdded { get; set; }
     }
 
@@ -80,7 +80,7 @@ namespace FinalProject.DATA.EF
         public int LocationId { get; set; }
         [Required]
         [Display(Name = "Reservation Date")]
-        [DisplayFormat(DataFormatString = "{0:d}, ApplyFormatInEditMode=true")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public System.DateTime ReservationDate { get; set; }
         [Display(Name = "Special Requests")]
         [UIHint("MultilineText")]

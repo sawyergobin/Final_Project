@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.MVC.Controllers
 {
+    [Authorize]
     public class ReservationsController : Controller
     {
         private FinalProjectEntities db = new FinalProjectEntities();
@@ -17,6 +19,13 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
+            if (User.IsInRole("Pet Owner"))
+            {
+                var userId = User.Identity.GetUserId();
+
+                var POReservations = db.Reservations.Where(x => x.Pet.OwnerId == userId).Include(r => r.Location).Include(r => r.Pet);
+                return View(POReservations.ToList());
+            }
             var reservations = db.Reservations.Include(r => r.Location).Include(r => r.Pet);
             return View(reservations.ToList());
         }
@@ -37,8 +46,20 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Reservations/Create
+        [Authorize(Roles ="Admin, Pet Owner")]
         public ActionResult Create()
         {
+            if (User.IsInRole("Pet Owner"))
+            {
+                //Used to filter the pets list in the case of user being a PO
+                var userId = User.Identity.GetUserId();
+
+                ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+                ViewBag.PetId = new SelectList(db.Pets.Where(x => x.OwnerId == userId), "PetId", "AssetName");
+                return View();
+            }
+
+            //this will only run (and return the default list) if the user ISNT a PO
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.PetId = new SelectList(db.Pets, "PetId", "AssetName");
             return View();
@@ -64,6 +85,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Reservations/Edit/5
+        [Authorize(Roles = "Admin, Employee")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -93,12 +115,14 @@ namespace FinalProject.UI.MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName", reservation.LocationId);
             ViewBag.PetId = new SelectList(db.Pets, "PetId", "AssetName", reservation.PetId);
             return View(reservation);
         }
 
         // GET: Reservations/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

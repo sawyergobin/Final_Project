@@ -1,14 +1,12 @@
 ﻿@model FinalProject.DATA.EF.Reservation
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Html.DisplayFor(model => model.ReservationDate)+"Reservation Details";
 }
 
-<h2>Details</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
 <div>
-    <h4>Reservation</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.ReservationDate)
@@ -45,6 +43,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationId }) |
+    @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationId }) @:|
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
