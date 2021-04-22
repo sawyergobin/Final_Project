@@ -1,15 +1,13 @@
 ﻿@model FinalProject.DATA.EF.Pet
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.AssetName +" Info";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Pet</h4>
-    <hr />
-    <dl class="dl-horizontal">
+    <dl>
         <dt>
             @Html.DisplayNameFor(model => model.AssetName)
         </dt>
@@ -23,7 +21,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AssetPhoto)
+            @*@Html.DisplayFor(model => model.AssetPhoto)*@
+            <img src="~/Content/images/pets/@Model.AssetPhoto" style="max-width: 450px" />
         </dd>
 
         <dt>
@@ -52,16 +51,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+            Owner's Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserDetail.FirstName)
+            @Html.DisplayFor(model => model.UserDetail.FullName)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PetId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PetId }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-white"})
 </p>

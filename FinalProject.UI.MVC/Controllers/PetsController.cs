@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using FinalProject.UI.MVC.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.MVC.Controllers
@@ -67,12 +69,42 @@ namespace FinalProject.UI.MVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Pet Owner")]
-        public ActionResult Create([Bind(Include = "PetId,AssetName,OwnerId,AssetPhoto,SpecialNotes,IsActive,DateAdded")] Pet pet)
+        public ActionResult Create([Bind(Include = "PetId,AssetName,OwnerId,AssetPhoto,SpecialNotes,IsActive,DateAdded")] Pet pet, HttpPostedFileBase petImg)
         {
             pet.DateAdded = DateTime.Now;
 
             if (ModelState.IsValid)
             {
+                #region File Upload
+                string file = "NoImage.png";
+
+                if (petImg != null)
+                {
+                    file = petImg.FileName;
+                    string ext = file.Substring(file.LastIndexOf('.'));
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif" };
+                    //check that the uploaded file is in our approved list of extensions
+                    if (goodExts.Contains(ext.ToLower()) && petImg.ContentLength <= 4194304)//check thet the file is less than 4mb, is the default allowed file size by .NET
+                    {
+                        //greate a new file name using a GUID
+                        file = Guid.NewGuid() + ext;
+                        #region Rezise Image
+                        string savePath = Server.MapPath("~/Content/images/pets/");
+
+                        Image convertedImage = Image.FromStream(petImg.InputStream);
+                        int maxImageSize = 500; //the full size image width
+                        int maxThumbSize = 100; //thumbnail size width
+
+                        ImageService.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                        #endregion
+                    }
+
+                }
+                //no matter what update the photo url with the value of the file variable
+                pet.AssetPhoto = file;
+                #endregion
+
+
                 db.Pets.Add(pet);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -107,11 +139,11 @@ namespace FinalProject.UI.MVC.Controllers
             if (User.IsInRole("Pet Owner"))
             {
                 var userId = User.Identity.GetUserId();
-                ViewBag.OwnerId = new SelectList(db.UserDetails.Where(x => x.UserId == userId), "UserId", "FirstName", pet.OwnerId);
+                ViewBag.OwnerId = new SelectList(db.UserDetails.Where(x => x.UserId == userId), "UserId", "FullName", pet.OwnerId);
                 return View(pet);
             }
 
-            ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FirstName", pet.OwnerId);
+            ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FullName", pet.OwnerId);
             return View(pet);
         }
 
@@ -120,10 +152,46 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PetId,AssetName,OwnerId,AssetPhoto,SpecialNotes,IsActive,DateAdded")] Pet pet)
+        public ActionResult Edit([Bind(Include = "PetId,AssetName,OwnerId,AssetPhoto,SpecialNotes,IsActive,DateAdded")] Pet pet, HttpPostedFileBase petImg)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+                string file = "NoImage.png";
+
+                if (petImg != null)
+                {
+                    file = petImg.FileName;
+                    string ext = file.Substring(file.LastIndexOf('.'));
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif" };
+                    //check that the uploaded file is in our approved list of extensions
+                    if (goodExts.Contains(ext.ToLower()) && petImg.ContentLength <= 4194304)//check thet the file is less than 4mb, is the default allowed file size by .NET
+                    {
+                        //greate a new file name using a GUID
+                        file = Guid.NewGuid() + ext;
+                        #region Rezise Image
+                        string savePath = Server.MapPath("~/Content/images/pets/");
+
+                        Image convertedImage = Image.FromStream(petImg.InputStream);
+                        int maxImageSize = 500; //the full size image width
+                        int maxThumbSize = 100; //thumbnail size width
+
+                        ImageService.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                        #endregion
+                        if (pet.AssetPhoto != null && pet.AssetPhoto != "NoImage.png")
+                        {
+                            //string path = Server.MapPath("~/Content/imgstore/books/");
+                            ImageService.Delete(savePath, pet.AssetPhoto);
+
+                        }
+                        pet.AssetPhoto = file;
+                    }
+
+                }
+                //no matter what update the photo url with the value of the file variable
+
+                #endregion
+
                 db.Entry(pet).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

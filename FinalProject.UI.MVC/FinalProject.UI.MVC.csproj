@@ -185,6 +185,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\ImageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\animate.css" />
@@ -200,11 +201,6 @@
     <Content Include="Content\fonts\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\icomoon\icomoon.svg" />
     <Content Include="Content\fonts\themify-icons\themify.svg" />
-    <Content Include="Content\images\client_1.png" />
-    <Content Include="Content\images\client_2.png" />
-    <Content Include="Content\images\client_3.png" />
-    <Content Include="Content\images\client_4.png" />
-    <Content Include="Content\images\client_5.png" />
     <Content Include="Content\images\cube.png" />
     <Content Include="Content\images\img_1.jpg" />
     <Content Include="Content\images\img_2.jpg" />
@@ -212,11 +208,12 @@
     <Content Include="Content\images\img_4.jpg" />
     <Content Include="Content\images\img_md_1.jpg" />
     <Content Include="Content\images\loader.gif" />
-    <Content Include="Content\images\loc.png" />
-    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\PawPrintBackG.jpg" />
     <Content Include="Content\images\person_1.jpg" />
     <Content Include="Content\images\person_2.jpg" />
     <Content Include="Content\images\person_3.jpg" />
+    <Content Include="Content\images\pets\NoImage.png" />
+    <Content Include="Content\images\pets\t_NoImage.png" />
     <Content Include="Content\images\PNCLogoReg200x200.png" />
     <Content Include="Content\images\PNCLogoTiny40x40.png" />
     <Content Include="Content\images\staff_1.jpg" />
@@ -332,7 +329,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_OriginalLayout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -474,6 +470,8 @@
     <Content Include="Views\Pets\Details.cshtml" />
     <Content Include="Views\Pets\Edit.cshtml" />
     <Content Include="Views\Pets\Index.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\EmailConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

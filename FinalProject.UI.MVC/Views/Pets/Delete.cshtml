@@ -6,11 +6,11 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to remove this pet from our system?</h3>
 <div>
-    <h4>Pet</h4>
+    <h4>@Model.AssetName</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl >
         <dt>
             @Html.DisplayNameFor(model => model.AssetName)
         </dt>
@@ -52,11 +52,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+            Owner's Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserDetail.FirstName)
+            @Html.DisplayFor(model => model.UserDetail.FullName)
         </dd>
 
     </dl>

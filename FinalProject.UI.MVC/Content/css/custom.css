@@ -1,10 +1,48 @@
-﻿div#mainContent {
-    width: 90%;
+﻿@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+/*#region Body Styling*/
+div#mainContent {
+    width: 85%;
     max-width: 1300px;
     margin: auto;
     text-align: center;
+    background-color: rgba(224, 238, 249, .95);
+    padding: 1em;
 }
 
+body {
+    background-image: url("/Content/images/PawPrintBackG.jpg");
+    min-height: 700px;
+    background-attachment: fixed;
+    /*Uncomment below for a large, HD image with no repeat*/
+    /*background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+}
+
+h2 {
+    margin-top: .5em;
+}
+
+form {
+    width: 80%;
+    margin: auto;
+}
+
+table {
+    width: 80%;
+    margin: auto;
+    
+}
+/*#endregion */
 /*#region Nav Styling */
 .gtco-nav #gtco-logo {
     display: inline;
@@ -31,3 +69,7 @@
     margin: 0;
 }
 /*#endregion */
+#mainLogo {
+    animation: rotation 2s 1 normal;
+    animation-delay: 3s;
+}
