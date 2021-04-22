@@ -1,15 +1,13 @@
 ﻿@model FinalProject.DATA.EF.Location
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.LocationName + " Info";
 }
 
-<h2>Details</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
-<div>
-    <h4>Location</h4>
-    <hr />
-    <dl class="dl-horizontal">
+<div class="text-center">
+    <dl @*class="dl-horizontal"*@>
         <dt>
             @Html.DisplayNameFor(model => model.LocationName)
         </dt>
@@ -17,15 +15,16 @@
         <dd>
             @Html.DisplayFor(model => model.LocationName)
         </dd>
+        @if (Request.IsAuthenticated)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+        }
         <dt>
             @Html.DisplayNameFor(model => model.City)
         </dt>
@@ -41,26 +40,30 @@
         <dd>
             @Html.DisplayFor(model => model.State)
         </dd>
+        @if (Request.IsAuthenticated)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ZipCode)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ZipCode)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReservationLimit)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReservationLimit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReservationLimit)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.ReservationLimit)
+            </dd>
+        }
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.LocationId }) |
-    @Html.ActionLink("Back to List", "Index")
+<p class="text-center">
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit Location", "Edit", new { id = Model.LocationId, @class="btn btn-white" })
+    }
+    @Html.ActionLink("Back to Locations", "Index", null, new { @class = "btn btn-white" })
 </p>

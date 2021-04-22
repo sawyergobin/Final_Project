@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.MVC.Controllers
 {
+    [Authorize]
     public class PetsController : Controller
     {
         private FinalProjectEntities db = new FinalProjectEntities();
@@ -17,6 +19,13 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Pets
         public ActionResult Index()
         {
+            if (User.IsInRole("Pet Owner"))
+            {
+                var userId = User.Identity.GetUserId();
+
+                var POPets = db.Pets.Where(x => x.OwnerId == userId).Include(p => p.UserDetail);
+                return View(POPets.ToList());
+            }
             var pets = db.Pets.Include(p => p.UserDetail);
             return View(pets.ToList());
         }
@@ -37,9 +46,18 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Pets/Create
+        [Authorize(Roles = "Admin, Pet Owner")]
         public ActionResult Create()
         {
-            ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FirstName");
+            if (User.IsInRole("Pet Owner"))
+            {
+                var userId = User.Identity.GetUserId();
+                ViewBag.OwnerId = new SelectList(db.UserDetails.Where(x => x.UserId == userId), "UserId", "FullName");
+                return View();
+
+            }
+
+            ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FullName");
             return View();
         }
 
@@ -48,8 +66,11 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Pet Owner")]
         public ActionResult Create([Bind(Include = "PetId,AssetName,OwnerId,AssetPhoto,SpecialNotes,IsActive,DateAdded")] Pet pet)
         {
+            pet.DateAdded = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Pets.Add(pet);
@@ -57,7 +78,16 @@ namespace FinalProject.UI.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FirstName", pet.OwnerId);
+            //This sends back the filtered ownerid (for POs) if the object doesn't pass validation
+            if (User.IsInRole("Pet Owner"))
+            {
+                var userId = User.Identity.GetUserId();
+                ViewBag.OwnerId = new SelectList(db.UserDetails.Where(x => x.UserId == userId), "UserId", "FullName");
+                return View();
+
+            }
+
+            ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FullName", pet.OwnerId);
             return View(pet);
         }
 
@@ -73,6 +103,14 @@ namespace FinalProject.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (User.IsInRole("Pet Owner"))
+            {
+                var userId = User.Identity.GetUserId();
+                ViewBag.OwnerId = new SelectList(db.UserDetails.Where(x => x.UserId == userId), "UserId", "FirstName", pet.OwnerId);
+                return View(pet);
+            }
+
             ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FirstName", pet.OwnerId);
             return View(pet);
         }
@@ -90,11 +128,20 @@ namespace FinalProject.UI.MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            if (User.IsInRole("Pet Owner"))
+            {
+                var userId = User.Identity.GetUserId();
+                ViewBag.OwnerId = new SelectList(db.UserDetails.Where(x => x.UserId == userId), "UserId", "FirstName", pet.OwnerId);
+                return View(pet);
+            }
+
             ViewBag.OwnerId = new SelectList(db.UserDetails, "UserId", "FirstName", pet.OwnerId);
             return View(pet);
         }
 
         // GET: Pets/Delete/5
+        [Authorize(Roles = "Admin, Pet Owner")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,18 +162,20 @@ namespace FinalProject.UI.MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Pet pet = db.Pets.Find(id);
-            db.Pets.Remove(pet);
+            pet.IsActive = false;
+            db.Entry(pet).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //Uncomment this when hard deleting
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

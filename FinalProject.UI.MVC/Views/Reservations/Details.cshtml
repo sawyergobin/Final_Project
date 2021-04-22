@@ -1,13 +1,13 @@
 ﻿@model FinalProject.DATA.EF.Reservation
 
 @{
-    ViewBag.Title = Html.DisplayFor(model => model.ReservationDate)+"Reservation Details";
+    ViewBag.Title = Html.DisplayFor(model => model.ReservationDate)+" Reservation Details";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 
 <div>
-    <dl class="dl-horizontal">
+    <dl >
         <dt>
             @Html.DisplayNameFor(model => model.ReservationDate)
         </dt>
@@ -45,7 +45,7 @@
 <p>
     @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationId }) @:|
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationId }, new { @class = "btn btn-white" })
     }
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-white" })
 </p>

@@ -180,6 +180,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,6 +217,8 @@
     <Content Include="Content\images\person_1.jpg" />
     <Content Include="Content\images\person_2.jpg" />
     <Content Include="Content\images\person_3.jpg" />
+    <Content Include="Content\images\PNCLogoReg200x200.png" />
+    <Content Include="Content\images\PNCLogoTiny40x40.png" />
     <Content Include="Content\images\staff_1.jpg" />
     <Content Include="Content\images\staff_2.jpg" />
     <Content Include="Content\images\staff_3.jpg" />

@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="~/Content/css/owl.theme.default.min.css">
     <!-- Theme style  -->
     <link rel="stylesheet" href="~/Content/css/style.css">
+
+    <!--Custom StyleSheet-->
+    <link rel="stylesheet" href="~/Content/css/custom.css">
     <!-- Modernizr JS -->
     <script src="~/Content/js/modernizr-2.6.2.min.js"></script>
     <!-- FOR IE9 below -->
@@ -42,11 +45,11 @@
             <div class="gtco-container">
 
                 <div class="row">
-                    <div class="col-sm-2 col-xs-12">
-                        <div id="gtco-logo"><a href="@Url.Action("Index", "Home")"><img src="~/Content/images/logo.png" alt="Paws N Claws Logo"></a></div>
+                    <div class="col-sm-4 col-xs-12">
+                        <div id="gtco-logo"><a href="@Url.Action("Index", "Home")"><img src="~/Content/images/PNCLogoTiny40x40.png" alt="Paws N Claws Logo"></a></div>
                         @Html.Partial("_LoginPartial")
                     </div>
-                    <div class="col-xs-10 text-right menu-1">
+                    <div class="col-xs-8 text-right menu-1">
                         <ul>
                             <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
                             <li><a href="@Url.Action("About","Home")">About Us</a></li>
@@ -105,7 +108,7 @@
             </div>
         </nav>
 
-        <div class="mainContent">
+        <div id="mainContent">
             @RenderBody()
         </div>
 

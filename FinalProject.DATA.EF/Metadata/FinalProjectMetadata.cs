@@ -10,7 +10,7 @@ namespace FinalProject.DATA.EF
     public class LocationMetaData
     {
         [Required]
-        [Display(Name = "Daycare Location Name")]
+        [Display(Name = "Daycare Name")]
         [StringLength(50, ErrorMessage = "*Location Name: Max 50 Characters")]
         public string LocationName { get; set; }
         [Required]

@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<FinalProject.DATA.EF.Pet>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = User.IsInRole("Pet Owner") ? "My Pets" : "All Pets";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 @if (User.IsInRole("Admin") || User.IsInRole("Pet Owner"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Add New Pet", "Create")
     </p>
 }
 
@@ -23,9 +23,12 @@
         <th>
             @Html.DisplayNameFor(model => model.SpecialNotes)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
+        @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+        }
         <th>
             @Html.DisplayNameFor(model => model.DateAdded)
         </th>
@@ -37,37 +40,71 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssetName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssetPhoto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SpecialNotes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserDetail.FullName)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.PetId })
+        if (User.IsInRole("Pet Owner") && item.IsActive == true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssetPhoto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecialNotes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail.FullName)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.PetId })
 
-                |
-                @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
-                @if (User.IsInRole("Admin") || User.IsInRole("Pet Owner"))
-                {
-                    @:|
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
-                }
-            </td>
-        </tr>
+                    |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
+                    @if (User.IsInRole("Admin") || User.IsInRole("Pet Owner"))
+                    {
+                        @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
+                    }
+                </td>
+            </tr>
+        }
+        else if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssetPhoto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecialNotes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail.FullName)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.PetId })
+                    |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
+                    }
+                </td>
+            </tr>
+        }
+
     }
 
 </table>

@@ -36,6 +36,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Locations/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +47,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "LocationId,LocationName,Address,City,State,ZipCode,ReservationLimit")] Location location)
         {
             if (ModelState.IsValid)
@@ -59,6 +61,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Locations/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +81,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "LocationId,LocationName,Address,City,State,ZipCode,ReservationLimit")] Location location)
         {
             if (ModelState.IsValid)
@@ -90,6 +94,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Locations/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +112,7 @@ namespace FinalProject.UI.MVC.Controllers
         // POST: Locations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Location location = db.Locations.Find(id);

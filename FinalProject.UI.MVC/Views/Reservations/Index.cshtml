@@ -8,7 +8,7 @@
 @if (User.IsInRole("Admin") || User.IsInRole("Pet Owner"))
 {
     <p class="text-center">
-        @Html.ActionLink("Make a Reservation", "Create", null, new { @class = "btn btn-white"})
+        @Html.ActionLink("Make a Reservation", "Create", null, new { @class = "btn btn-defult"})
     </p>
 }
 <table class="table">

@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<FinalProject.DATA.EF.Location>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Locations";
 }
 
-<h2 class="text-center">Index</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
 @if (User.IsInRole("Admin"))
 {
-    <p class="text-center btn btn-default">
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <div class="text-center btn btn-default">
+        @Html.ActionLink("Add New Location", "Create")
+    </div>
 }
 
 <table class="table">
@@ -18,21 +18,27 @@
         <th>
             @Html.DisplayNameFor(model => model.LocationName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
+        @if (Request.IsAuthenticated)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+        }
         <th>
             @Html.DisplayNameFor(model => model.City)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.State)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReservationLimit)
-        </th>
+        @if (Request.IsAuthenticated)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationLimit)
+            </th>
+        }
         <th></th>
     </tr>
 
@@ -42,28 +48,35 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LocationName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
+            @if (Request.IsAuthenticated)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.State)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservationLimit)
-            </td>
+
+            @if (Request.IsAuthenticated)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationLimit)
+                </td>
+            }
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.LocationId })
                 @if (User.IsInRole("Admin"))
                 {
                     @:|
-                @Html.ActionLink("Edit", "Edit", new { id = item.LocationId }) @:|
-                @Html.ActionLink("Delete", "Delete", new { id = item.LocationId })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.LocationId }) @:|
+                    @Html.ActionLink("Delete", "Delete", new { id = item.LocationId })
                 }
 
             </td>
