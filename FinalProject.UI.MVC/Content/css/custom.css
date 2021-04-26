@@ -2,7 +2,7 @@
 div#mainContent {
     width: 85%;
     max-width: 1300px;
-    min-height: 50vh;
+    min-height: 55vh;
     margin: auto;
     text-align: center;
     background-color: rgba(224, 238, 249, .95);
@@ -73,6 +73,11 @@ td {
 /*#region Specifics*/
 div #reservationBackButton {
     clear: both;
+}
+
+#loginForm {
+    width: 60%;
+    margin: auto;
 }
 /*#endregion*/
 
