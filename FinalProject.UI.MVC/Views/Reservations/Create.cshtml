@@ -1,10 +1,10 @@
 ﻿@model FinalProject.DATA.EF.Reservation
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Making a Reservation for: " + String.Format("{0: dddd MMMM d, yyyy}", ViewBag.ResDate);
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
@@ -12,11 +12,11 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Reservation</h4>
-        <hr />
+        <h4>Reservation Details</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.PetId, "PetId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.PetId, "PetId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class = "control-label col-md-2">Pet Name</div>
             <div class="col-md-10">
                 @Html.DropDownList("PetId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PetId, "", new { @class = "text-danger" })
@@ -24,20 +24,24 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LocationId, "LocationId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.LocationId, "LocationId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="control-label col-md-2">Available Locations</div>
             <div class="col-md-10">
                 @Html.DropDownList("LocationId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <input type="hidden" value="@ViewBag.ResDate" name="ReservationDate"/>
+        
+        @* Reservation Date is already determined so this isn't needed *@
+        @*<div class="form-group">
             @Html.LabelFor(model => model.ReservationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ReservationDate, new { htmlAttributes = new { @class = "form-control", id = "datepicker" } })
                 @Html.ValidationMessageFor(model => model.ReservationDate, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.SpecialRequests, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,27 +53,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Make Reservation" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Cancel Reservation", "Index", null, new { @class = "btn btn-danger btn-outline" })
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <!--jQuery UI-->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!--jQuery DatePicker Script-->
-    <script>
-        $(function () {
-            $("#datepicker").datepicker();
-            $("#anim").on("change", function () {
-                $("#datepicker").datepicker("option", "drop", $(this).val());
-            });
-        });
-    </script>
-}

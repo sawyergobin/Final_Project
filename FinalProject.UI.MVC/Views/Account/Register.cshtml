@@ -9,7 +9,6 @@
 {
     @Html.AntiForgeryToken()
     <h4>Create an account to starting finding the purrfect place to board your furry friends!</h4>
-    <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
@@ -32,13 +31,13 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "*Optional but helpful" })
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control bfh-phone", placeholder = "*Optional but helpful" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "ex. F1d0'sBFF-99!" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "ex. F1d0'sBFF!" })
         </div>
     </div>
     <div class="form-group">

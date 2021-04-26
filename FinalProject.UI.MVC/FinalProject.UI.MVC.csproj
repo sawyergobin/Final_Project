@@ -209,16 +209,14 @@
     <Content Include="Content\images\img_md_1.jpg" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\PawPrintBackG.jpg" />
-    <Content Include="Content\images\person_1.jpg" />
-    <Content Include="Content\images\person_2.jpg" />
-    <Content Include="Content\images\person_3.jpg" />
     <Content Include="Content\images\pets\NoImage.png" />
+    <Content Include="Content\images\testimonials\TestiCat.jpg" />
+    <Content Include="Content\images\testimonials\TestiDog.jpg" />
+    <Content Include="Content\images\testimonials\TestiLady.jpg" />
+    <Content Include="Content\images\testimonials\TestiMan.jpg" />
     <Content Include="Content\images\pets\t_NoImage.png" />
     <Content Include="Content\images\PNCLogoReg200x200.png" />
     <Content Include="Content\images\PNCLogoTiny40x40.png" />
-    <Content Include="Content\images\staff_1.jpg" />
-    <Content Include="Content\images\staff_2.jpg" />
-    <Content Include="Content\images\staff_3.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\jquery.countTo.js" />
     <Content Include="Content\js\jquery.easing.1.3.js" />
@@ -328,7 +326,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_OriginalLayout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -473,6 +470,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
     <Content Include="Views\Reservations\DatePick.cshtml" />
+    <Content Include="ConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

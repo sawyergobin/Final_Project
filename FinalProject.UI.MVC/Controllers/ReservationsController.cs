@@ -52,23 +52,38 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin, Pet Owner")]
+        [HttpPost]
+        public ActionResult DatePick(DateTime resDate)
+        {
+
+            return RedirectToAction("Create", new { resDate = resDate });
+        }
+
 
         //OLD CREATE GET ACTION BELOW ++++
         // GET: Reservations/Create
         [Authorize(Roles ="Admin, Pet Owner")]
-        public ActionResult Create()
+        public ActionResult Create(DateTime resDate)
         {
+            ViewBag.ResDate = resDate; //This allows the date to be displayed in the view
+
             if (User.IsInRole("Pet Owner"))
             {
                 //Used to filter the pets list in the case of user being a PO
                 var userId = User.Identity.GetUserId();
 
-                ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+                //This is the filtering for reservations to match the selected date and check that it's LESS than the res limit
+                var locsList = db.Locations.Where(x => x.Reservations.Where(y => y.ReservationDate == resDate && y.LocationId == x.LocationId).Count() < x.ReservationLimit);
+                
+                ViewBag.LocationId = new SelectList(locsList, "LocationId", "LocationName");
+                //This .Where ensures owners only see their own pets
                 ViewBag.PetId = new SelectList(db.Pets.Where(x => x.OwnerId == userId), "PetId", "AssetName");
                 return View();
             }
 
-            //this will only run (and return the default list) if the user ISNT a PO
+            //this will only run (and return the default list) if the user ISN'T a PO
+            //These 2 lists aren't filtered because we don't want those restrictions to apply to admins
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.PetId = new SelectList(db.Pets, "PetId", "AssetName");
             return View();

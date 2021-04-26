@@ -1,5 +1,5 @@
 ﻿@{
-      ViewBag.Title = "Choose a Reservation Date";
+    ViewBag.Title = "Choose a Reservation Date";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -9,12 +9,13 @@
     @Html.AntiForgeryToken()
 
     <div class="row">
-        <input id="datepicker" class="col-md-4 col-md-offset-4 col-sm-12" />
+        <input id="datepicker" name="resDate" class="col-md-4 col-md-offset-4 col-sm-12" />
     </div>
 
+    <br />
     <div class="form-group">
         <div class="text-center">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Select Date" class="btn btn-default" />
         </div>
     </div>
 }
