@@ -45,6 +45,15 @@ namespace FinalProject.UI.MVC.Controllers
             return View(reservation);
         }
 
+        //Custom DatePick View Here ++++
+        [Authorize(Roles = "Admin, Pet Owner")]
+        public ActionResult DatePick()
+        {
+            return View();
+        }
+
+
+        //OLD CREATE GET ACTION BELOW ++++
         // GET: Reservations/Create
         [Authorize(Roles ="Admin, Pet Owner")]
         public ActionResult Create()

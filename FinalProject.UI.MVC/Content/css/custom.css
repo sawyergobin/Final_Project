@@ -1,17 +1,8 @@
-﻿@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(359deg);
-    }
-}
-
-/*#region Body Styling*/
+﻿/*#region Body Styling*/
 div#mainContent {
     width: 85%;
     max-width: 1300px;
+    min-height: 50vh;
     margin: auto;
     text-align: center;
     background-color: rgba(224, 238, 249, .95);
@@ -36,13 +27,11 @@ form {
     width: 80%;
     margin: auto;
 }
-
-table {
-    width: 80%;
-    margin: auto;
-    
+td {
+    text-align: left;
 }
 /*#endregion */
+
 /*#region Nav Styling */
 .gtco-nav #gtco-logo {
     display: inline;
@@ -65,11 +54,43 @@ table {
     transition: 1s;
 }
 
+.gtco-nav ul li a {
+    font-weight: bold;
+}
+
 .navbar-right {
     margin: 0;
 }
 /*#endregion */
+
+/*#region Footer*/
+#gtco-footer {
+    padding: 3em 0 0 0 !important;
+}
+
+/*#endregion*/
+
+/*#region Specifics*/
+div #reservationBackButton {
+    clear: both;
+}
+/*#endregion*/
+
+/*#region Animation*/
 #mainLogo {
     animation: rotation 2s 1 normal;
     animation-delay: 3s;
 }
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+/*#endregion*/
+

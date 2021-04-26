@@ -7,9 +7,9 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 @if (User.IsInRole("Admin") || User.IsInRole("Pet Owner"))
 {
-    <p class="text-center">
-        @Html.ActionLink("Make a Reservation", "Create", null, new { @class = "btn btn-defult"})
-    </p>
+    <div class="text-center btn btn-defult">
+        @Html.ActionLink("Make a Reservation", "DatePick")
+    </div>
 }
 <table class="table">
     <tr>

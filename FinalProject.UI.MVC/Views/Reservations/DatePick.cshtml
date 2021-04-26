@@ -1,0 +1,39 @@
+﻿@{
+      ViewBag.Title = "Choose a Reservation Date";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <input id="datepicker" class="col-md-4 col-md-offset-4 col-sm-12" />
+    </div>
+
+    <div class="form-group">
+        <div class="text-center">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div id="reservationBackButton">
+    @Html.ActionLink("Back to All Reservations", "Index", "Reservations", null, new { @class = "btn btn-danger btn-outline" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--jQuery UI-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--jQuery DatePicker Script-->
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+            $("#anim").on("change", function () {
+                $("#datepicker").datepicker("option", "drop", $(this).val());
+            });
+        });
+    </script>
+}

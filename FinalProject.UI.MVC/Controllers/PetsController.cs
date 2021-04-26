@@ -72,6 +72,7 @@ namespace FinalProject.UI.MVC.Controllers
         public ActionResult Create([Bind(Include = "PetId,AssetName,OwnerId,AssetPhoto,SpecialNotes,IsActive,DateAdded")] Pet pet, HttpPostedFileBase petImg)
         {
             pet.DateAdded = DateTime.Now;
+            pet.IsActive = true;
 
             if (ModelState.IsValid)
             {

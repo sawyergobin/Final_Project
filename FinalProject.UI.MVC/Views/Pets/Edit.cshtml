@@ -1,11 +1,10 @@
 ﻿@model FinalProject.DATA.EF.Pet
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editing " + Model.AssetName+"'s Info";
 }
 
-<h2>Edit</h2>
-
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Edit", "Pets", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -49,8 +48,6 @@
             </div>
         </div>
 
-        @Html.HiddenFor(model => model.IsActive)
-        
 
         @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
         {
@@ -64,6 +61,12 @@
                 </div>
             </div>
         }
+        else
+        {
+
+            @Html.HiddenFor(model => model.IsActive)
+
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -74,14 +77,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save Changes" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Discard Changes", "Index", null, new { @class = "btn btn-danger btn-outline" })
 </div>
 
 @section Scripts {
