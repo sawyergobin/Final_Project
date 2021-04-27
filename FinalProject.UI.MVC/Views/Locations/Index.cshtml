@@ -1,16 +1,17 @@
 ﻿@model IEnumerable<FinalProject.DATA.EF.Location>
 
 @{
-    ViewBag.Title = "All Locations";
+    ViewBag.Title = "Our Locations";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
 @if (User.IsInRole("Admin"))
 {
-    <div class="text-center btn btn-default">
-        @Html.ActionLink("Add New Location", "Create")
+    <div>
+        @Html.ActionLink("Add New Location", "Create", null, new { @class = "btn btn-special" })
     </div>
+    <br />
 }
 
 <table class="table">
@@ -71,7 +72,7 @@
                 </td>
             }
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.LocationId })
+                @Html.ActionLink("Info", "Details", new { id = item.LocationId })
                 @if (User.IsInRole("Admin"))
                 {
                     @:|

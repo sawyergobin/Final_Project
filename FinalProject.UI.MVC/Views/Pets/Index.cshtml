@@ -8,7 +8,7 @@
 @if (User.IsInRole("Admin") || User.IsInRole("Pet Owner"))
 {
     <p>
-        @Html.ActionLink("Add New Pet", "Create")
+        @Html.ActionLink("Add New Pet", "Create", null, new { @class = "btn btn-special" })
     </p>
 }
 
@@ -97,11 +97,11 @@
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.PetId })
                     |
-                    @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
+                    @Html.ActionLink("Edit Info", "Edit", new { id = item.PetId })
                     @if (User.IsInRole("Admin"))
                     {
                         @:|
-                        @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
+                        @Html.ActionLink("Remove", "Delete", new { id = item.PetId })
                     }
                 </td>
             </tr>

@@ -1,7 +1,7 @@
 ﻿@model FinalProject.DATA.EF.Pet
 
 @{
-    ViewBag.Title = Model.AssetName +" Info";
+    ViewBag.Title = Model.AssetName +"'s Information";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PetId }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Edit Info", "Edit", new { id = Model.PetId }, new { @class = "btn btn-default" }) 
     @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-white"})
 </p>

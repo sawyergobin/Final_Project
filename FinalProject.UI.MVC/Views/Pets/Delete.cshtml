@@ -1,16 +1,14 @@
 ﻿@model FinalProject.DATA.EF.Pet
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Removing Pet";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
 <h3>Are you sure you want to remove this pet from our system?</h3>
 <div>
-    <h4>@Model.AssetName</h4>
-    <hr />
-    <dl >
+    <dl>
         <dt>
             @Html.DisplayNameFor(model => model.AssetName)
         </dt>
@@ -24,7 +22,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AssetPhoto)
+            @*@Html.DisplayFor(model => model.AssetPhoto)*@
+            <img src="~/Content/images/pets/@Model.AssetPhoto" style="max-width: 450px"/>
         </dd>
 
         <dt>
@@ -65,8 +64,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Remove" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
         </div>
     }
 </div>

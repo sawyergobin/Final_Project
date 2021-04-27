@@ -10,6 +10,7 @@
     <div>
         @Html.ActionLink("Make a Reservation", "DatePick", null, new { @class="btn btn-special"})
     </div>
+    <br />
 }
 <table class="table">
     <tr>
@@ -45,7 +46,7 @@
             </td>
             <td>
 
-                @Html.ActionLink("Details", "Details", new { id = item.ReservationId })
+                @Html.ActionLink("Info", "Details", new { id = item.ReservationId })
                 @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
                 {
                     @:|

@@ -1,7 +1,7 @@
 ﻿@model FinalProject.DATA.EF.Reservation
 
 @{
-    ViewBag.Title = "Delete Reservation";
+    ViewBag.Title = "Delete Reservation For " + Model.Pet.AssetName;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -47,8 +47,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to Reservations", "Index", null, new { @class = "btn btn-default" })
         </div>
     }
 </div>

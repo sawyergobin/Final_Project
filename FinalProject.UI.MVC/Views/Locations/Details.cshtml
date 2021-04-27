@@ -1,13 +1,13 @@
 ﻿@model FinalProject.DATA.EF.Location
 
 @{
-    ViewBag.Title = Model.LocationName + " Info";
+    ViewBag.Title = Model.LocationName + "Location Info";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
-<div class="text-center">
-    <dl @*class="dl-horizontal"*@>
+<div >
+    <dl >
         <dt>
             @Html.DisplayNameFor(model => model.LocationName)
         </dt>
@@ -63,7 +63,7 @@
 <p class="text-center">
     @if (User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Edit Location", "Edit", new { id = Model.LocationId, @class="btn btn-white" })
+        @Html.ActionLink("Edit Location", "Edit", new { id = Model.LocationId}, new { @class="btn btn-default"})
     }
     @Html.ActionLink("Back to Locations", "Index", null, new { @class = "btn btn-white" })
 </p>
