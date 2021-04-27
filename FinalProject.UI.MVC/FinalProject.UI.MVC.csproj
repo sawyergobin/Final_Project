@@ -201,12 +201,6 @@
     <Content Include="Content\fonts\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\icomoon\icomoon.svg" />
     <Content Include="Content\fonts\themify-icons\themify.svg" />
-    <Content Include="Content\images\cube.png" />
-    <Content Include="Content\images\img_1.jpg" />
-    <Content Include="Content\images\img_2.jpg" />
-    <Content Include="Content\images\img_3.jpg" />
-    <Content Include="Content\images\img_4.jpg" />
-    <Content Include="Content\images\img_md_1.jpg" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\PawPrintBackG.jpg" />
     <Content Include="Content\images\pets\NoImage.png" />
