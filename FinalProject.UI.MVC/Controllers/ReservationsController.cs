@@ -60,8 +60,7 @@ namespace FinalProject.UI.MVC.Controllers
             return RedirectToAction("Create", new { resDate = resDate });
         }
 
-
-        //OLD CREATE GET ACTION BELOW ++++
+        
         // GET: Reservations/Create
         [Authorize(Roles ="Admin, Pet Owner")]
         public ActionResult Create(DateTime resDate)
@@ -96,6 +95,7 @@ namespace FinalProject.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ReservationId,PetId,LocationId,ReservationDate,SpecialRequests")] Reservation reservation)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Reservations.Add(reservation);
